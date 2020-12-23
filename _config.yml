@@ -54,8 +54,6 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-paginate: 6
-
 show_footer: true           # show the "previous" and "next" links at the end of each post | false
 dark_theme: false            # use the dark mode as default  | false
 dark_header: true            # keep the header dark          | true
