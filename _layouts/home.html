@@ -3,7 +3,7 @@ layout: default
 ---
 <article>
   <header><h1>&nbsp;&nbsp;Posts</h1></header>
-  <ul class="archive">
+  <ul>
     {%- assign posts = paginator.posts | default: site.posts -%}
     {% for post in posts limit:6%}
     <li>
@@ -13,7 +13,7 @@ layout: default
         {% if post.description %}
            {{ post.description }}
         {% else %}
-           {{ post.excerpt | strip_html | truncatewords: 50 }}
+           {{ post.excerpt | strip_html | truncatewords: 23 }}
         {% endif %}
       </p>
     </li>

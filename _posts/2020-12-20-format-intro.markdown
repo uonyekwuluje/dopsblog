@@ -3,6 +3,18 @@ layout: post
 title:  "Blog Format Introduction"
 date:   2020-12-20 
 categories: jekyll update
+description: "This post highlights the formating features of this blog."
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+### Code Highlight
+```
+#!/bin/bash
+echo "Hello World!"
+```
 
+### Table
+
+|Column 1  |  Column 2   | Column 3 | 
+|:-------  | :---------: | --------: |
+|row   |  data   | data |
+|row   |  data   | data |
+|row   |  data   | data |
