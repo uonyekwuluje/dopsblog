@@ -3,5 +3,3 @@ site_links:
   link: "/about/" 
 - name: "Projects"
   link: "/projects/"
-- name: "Contacts"
-  link: "/contacts/"
