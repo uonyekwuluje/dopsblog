@@ -2,6 +2,10 @@
   text-align: justify;
 }
 
+.container-fluid {
+   padding: 0px 60px 0px 60px;
+}
+
 pre, code {
   width: 100%;
   color: #fff;
@@ -51,5 +55,22 @@ footer {
   height: 60px;
   #padding: 1rem;
   line-height: 60px; /* Vertically center the text there */
-  #background-color: #242321;
+  background-color: #242321;
+  color: white;
+}
+
+.postarticleformat {
+  padding: 10px 80px 10px 80px;
+}
+
+.pagearticleformat {
+  padding: 10px 80px 10px 80px;
+}
+
+.mainpagearticleformat {
+  padding: 10px 80px 10px 80px;
+}
+
+article {
+  text-align: justify;
 }
