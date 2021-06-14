@@ -6,3 +6,14 @@
 - import_tasks: "setup-Debian.yml"
   when:
     - ansible_os_family == 'Debian'
+
+- name: Update | Update /etc/hosts with Test Nodes
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '.*{{ item }}$'
+    line: "{{ hostvars[item]['ansible_default_ipv4']['address'] }} {{item}}"
+    state: present
+  when: hostvars[item]['ansible_facts']['default_ipv4'] is defined
+  with_items:
+    - "{{ groups['rke2_stack'] }}"
+  become: yes

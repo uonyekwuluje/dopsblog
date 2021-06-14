@@ -1,12 +1,10 @@
 ---
-- name: Install k3 Base
-  hosts: k3s_master
+- name: Install rke2 master
+  hosts: rke2_master
   gather_facts: true
   become: yes
   become_user: root
   become_method: sudo
-  vars_files:
-    - "../../inventory/group_vars/all.yml"
   roles:
-  - role: k3s/master
+  - role: rke2/master
     when: ansible_os_family == 'Debian'

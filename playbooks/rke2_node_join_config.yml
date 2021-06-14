@@ -1,0 +1,54 @@
+---
+- name: Install rke2 Base
+  hosts: rke2_master
+  gather_facts: true
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: Display rke2 Token
+    command: cat node-token
+    args: 
+      chdir: /var/lib/rancher/rke2/server
+    register: rke2_token_output
+
+  - name: Print rke2 to console
+    debug:
+       msg: "{{ rke2_token_output.stdout }}"
+
+  - name: Print Server IP
+    debug:
+       msg: "{{hostvars[groups['rke2_master'][0]]['ansible_default_ipv4']['address']}}"
+
+  - name: set server token 
+    set_fact:
+      rke2_token: "{{ rke2_token_output.stdout }}"
+      rke2_server_ip: "{{hostvars[groups['rke2_master'][0]]['ansible_default_ipv4']['address']}}"
+
+
+
+- name: Install rke2 Nodes
+  hosts: rke2_nodes
+  gather_facts: true
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: Install Nodes
+    shell: |
+       curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="agent" sudo sh -
+       sudo mkdir -p /etc/rancher/rke2/
+
+#  - name: Register Nodes
+#    shell: curl -sfL http://get.k3s.io | K3S_URL=https://{{ hostvars['kube-master'].k3s_server_ip }}:6443 K3S_TOKEN={{ hostvars['kube-master'].k3s_token }} sh - 
+#
+#
+#  - name: Enable Service 
+#    systemd:
+#       name: k3s-agent
+#       state: restarted
+#       daemon_reload: yes
+#    register: k3s_agent_service
+#    until: k3s_agent_service.status.ActiveState == "active"
+#    retries: 15
+#    delay: 20

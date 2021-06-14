@@ -1,12 +1,10 @@
 ---
-- name: Install k3 Base
-  hosts: k3s_master, k3s_nodes
+- name: Install rke2 Base
+  hosts: rke2_stack
   gather_facts: true
   become: yes
   become_user: root
   become_method: sudo
-  vars_files:
-    - "../../inventory/group_vars/all.yml"
   roles:
   - role: general
   - role: docker/ubuntu/common

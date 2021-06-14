@@ -1,8 +1,8 @@
 ---
-- name: Install K3s
+- name: Install rke2
   become: yes
   become_user: ubuntu 
-  shell: curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="- -write-kubeconfig=/home/ubuntu/.kube/config - -write-kubeconfig-mode=644" sh -
+  shell: curl -sfL https://get.rke2.io | sudo sh - 
 
 - name: Install Helm
   become: yes
@@ -11,10 +11,10 @@
     
 - name: Enable Service 
   systemd:
-     name: k3s
+     name: rke2-server
      state: restarted
      daemon_reload: yes
-  register: k3s_service
-  until: k3s_service.status.ActiveState == "active"
+  register: rke2_service
+  until: rke2_service.status.ActiveState == "active"
   retries: 15
   delay: 20
