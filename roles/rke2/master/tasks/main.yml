@@ -14,7 +14,22 @@
      name: rke2-server
      state: restarted
      daemon_reload: yes
+     enabled: yes
   register: rke2_service
   until: rke2_service.status.ActiveState == "active"
   retries: 15
   delay: 20
+
+- name: Kubectl Configs
+  shell: |
+     sudo mkdir /home/ubuntu/.kube
+     sudo cp /etc/rancher/rke2/rke2.yaml /home/ubuntu/.kube/config
+     sudo chown -R ubuntu:ubuntu /home/ubuntu/.kube 
+
+- name: Create Kubectl File 
+  lineinfile: 
+    dest: "/etc/profile"
+    line: '{{item.config}}' 
+    state: present
+  with_items:
+  - config: 'PATH=$PATH:/var/lib/rancher/rke2/bin'

@@ -38,17 +38,24 @@
     shell: |
        curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="agent" sudo sh -
        sudo mkdir -p /etc/rancher/rke2/
+       sudo touch /etc/rancher/rke2/config.yaml
 
-#  - name: Register Nodes
-#    shell: curl -sfL http://get.k3s.io | K3S_URL=https://{{ hostvars['kube-master'].k3s_server_ip }}:6443 K3S_TOKEN={{ hostvars['kube-master'].k3s_token }} sh - 
-#
-#
-#  - name: Enable Service 
-#    systemd:
-#       name: k3s-agent
-#       state: restarted
-#       daemon_reload: yes
-#    register: k3s_agent_service
-#    until: k3s_agent_service.status.ActiveState == "active"
-#    retries: 15
-#    delay: 20
+  - name: Create files
+    lineinfile: 
+      dest: "/etc/rancher/rke2/config.yaml"
+      line: '{{item.config}}' 
+      state: present
+    with_items:
+    - config: 'server: https://kube-master:9345'
+    - config: "token: {{ hostvars['kube-master'].rke2_token }}"
+
+  - name: Enable Service 
+    systemd:
+       name: rke2-agent
+       state: restarted
+       daemon_reload: yes
+       enabled: yes
+    register: rke2_agent_service
+    until: rke2_agent_service.status.ActiveState == "active"
+    retries: 15
+    delay: 20
