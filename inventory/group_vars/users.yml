@@ -1,0 +1,109 @@
+---
+yeti_users:
+  - username: uonyekwuluje
+    user_group: uonyekwuluje
+    gekos: "Uchechukwu Onyekwuluje" 
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "sudo,uonyekwuluje"
+
+jenkins_user:
+  - username: jenkins
+    user_group: jenkins
+    gekos: "Jenkins User"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "sudo,jenkins"
+
+jenkins_slave_user:
+  - username: jenkins
+    user_group: jenkins
+    gekos: "Jenkins Slave User"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "sudo,jenkins"
+
+jenkins_admin_user:
+  - username: jenkins
+    user_group: jenkins
+    gekos: "Jenkins Admin User"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "sudo,jenkins"
+
+
+artifactory_user:
+  - username: artifactory
+    user_group: artifactory
+    gekos: "Artifactory User"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "sudo,artifactory"
+
+
+prometheus_user:
+  - username: prometheus
+    user_group: prometheus
+    gekos: "Prometheus User"
+    user_home: "/home/prometheus"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "prometheus"
+
+consul_user:
+  - username: consul
+    user_group: consul
+    gekos: "Consul User"
+    user_home: "/home/consul"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "consul"
+
+sonarqube_user:
+  - username: sonar
+    user_group: sonar
+    gekos: "Sonarqube User"
+    user_home: "/home/sonar"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "sonar"
+
+
+kafka_user:
+  - username: kafka
+    user_group: kafka
+    user_password: "kafkapassword"
+    gekos: "Kafka User"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "wheel"
+
+
+openshift_user:
+  - username: origin
+    user_group: origin
+    user_password: "originpassword"
+    gekos: "Openshift User"
+    user_shell: "/bin/bash"
+    use_sudo: true
+    user_groups: "sudo"
+
+linux_users:
+  - username: tpatel
+    user_group: tpatel
+    user_password: "paSsWor&d12"
+    gekos: "Tony Patel"
+    user_shell: "/bin/bash"
+    use_sudo: true
+  - username: fbruno
+    user_group: fbruno
+    user_password: "paSsWor&d12"
+    gekos: "Frank Bruno"
+    user_shell: "/bin/bash"
+    use_sudo: true
+  - username: taspinal
+    user_group: taspinal
+    user_password: "paSsWor&d12"
+    gekos: "Tonye Aspinal"
+    user_shell: "/bin/bash"
+    use_sudo: true

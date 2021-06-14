@@ -1,0 +1,8 @@
+---
+- name: Empty Play 
+  hosts: k3s_stack
+  gather_facts: true
+
+- import_playbook: k3s_base_config.yml
+- import_playbook: k3s_master_config.yml
+- import_playbook: k3s_node_join_config.yml

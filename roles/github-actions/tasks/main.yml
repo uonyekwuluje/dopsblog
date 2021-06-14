@@ -1,0 +1,111 @@
+---
+- name: Delete Actions Runner Folder
+  file:
+    path: "/opt/{{ item.name }}"
+    state: absent
+  with_items: '{{ action_runners }}'
+
+- name: Create Actions Runner Folder
+  file:
+    path: "/opt/{{ item.name }}"
+    state: directory
+  with_items: '{{ action_runners }}'
+
+- name: Download Github Actions
+  unarchive:
+    src: "{{ github_runner_url }}"
+    dest: "/opt/{{ item.name }}"
+    remote_src: yes
+  with_items: '{{ action_runners }}'
+  become: True
+
+- name: "Change Directory Ownership"
+  file:
+    path: "/opt/{{ item.name }}"
+    state: "directory"
+    recurse: "yes"
+    owner: "ubuntu"
+    group: "ubuntu"
+  with_items: '{{ action_runners }}'
+
+#- name: Create | Systems User Group
+#  group: 
+#      name: "{{ item.user_group }}"
+#      state: present
+#  with_items: '{{ linux_users }}'
+#
+##- name: Create | Create Home
+##  file:
+##      path: "{{ item.user_home }}"
+##      state: directory
+##  with_items: '{{ linux_users }}'
+#
+#- name: Create | Systems users, shell, home dirs
+#  user: 
+#      name: "{{ item.username }}" 
+#      shell: "{{ item.user_shell }}" 
+#      group: "{{ item.user_group }}" 
+#      comment: "{{ item.gekos }}" 
+#  with_items: '{{ linux_users }}'
+#
+#
+##- name: Update | Home Permissions
+##  file:
+##      path: "{{ item.user_home }}"
+##      recurse: yes
+##      owner: "{{ item.username }}"
+##      group: "{{ item.user_group }}"
+##      mode: "0755"
+##  with_items: "{{consul_user}}"
+#
+#- name: Update | Sudoers file and validate
+#  lineinfile: 
+#      destfile: /etc/sudoers
+#      insertafter: EOF
+#      line: '{{ item.username }} ALL=(ALL) NOPASSWD: ALL'
+#      regexp: '^{{ item.username }} .*'
+#      state: present
+#  with_items: "{{ linux_users }}"
+#
+#
+#- name: Create |  SSH Directory
+#  file:
+#     path: "/home/{{ item.username }}/.ssh"
+#     state: directory
+#     owner: "{{ item.username }}"
+#     group: "{{ item.user_group }}"
+#     mode: "0700"
+#  with_items: '{{ linux_users }}'
+#
+#
+#- name: Authorized Keys | Add Public Key to Authorized Keys file
+#  lineinfile:
+#    dest: "/home/{{ item.username }}/.ssh/authorized_keys"
+#    state: present
+#    create: yes
+#    line: "{{ ssh_systems_pub }}"
+#    owner: "{{ item.username }}"
+#    group: "{{ item.user_group }}"
+#    mode: "0644"
+#  with_items: '{{ linux_users }}'
+#
+#
+#- name: Public SSH Keys | Create User Public Keys
+#  copy:
+#    dest: "/home/{{ item.username }}/.ssh/id_rsa.pub"
+#    content: "{{ ssh_systems_pub }}"
+#    owner: "{{ item.username }}"
+#    group: "{{ item.user_group }}"
+#    mode: "0644"
+#  with_items: '{{ linux_users }}'
+#
+#
+#- name: Private SSH Keys | Create User Private Keys
+#  copy:
+#    dest: "/home/{{ item.username }}/.ssh/id_rsa"
+#    content: "{{ ssh_systems_priv }}"
+#    owner: "{{ item.username }}"
+#    group: "{{ item.user_group }}"
+#    mode: "0400"
+#  with_items: '{{ linux_users }}'
+#

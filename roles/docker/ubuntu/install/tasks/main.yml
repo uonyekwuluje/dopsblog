@@ -1,0 +1,27 @@
+# Install Docker, Docker Compose and Docker Machine
+- name: Install | Docker 
+  apt: 
+     name: "{{ packages }}"
+  vars:
+     packages:
+       - docker-ce
+       - docker-ce-cli 
+       - containerd.io
+       - docker-compose
+  tags:
+    docker
+
+- name: Update user group
+  command: usermod -aG docker ubuntu
+  become: true
+  tags:
+    docker
+
+
+- name: Install | Docker Machine
+  get_url:
+    url: "{{ docker_machine_url }}"
+    dest: "/bin/docker-machine"
+    mode: "0755"
+  tags:
+    docker

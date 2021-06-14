@@ -1,0 +1,8 @@
+---
+ansible_connection: ssh
+ansible_user: ubuntu
+ansible_python_interpreter: 'python3'
+
+github_runner_version: "2.278.0"
+github_runner_file: "actions-runner-linux-x64-{{ github_runner_version }}.tar.gz"
+github_runner_url: "https://github.com/actions/runner/releases/download/v{{ github_runner_version }}/{{ github_runner_file }}"

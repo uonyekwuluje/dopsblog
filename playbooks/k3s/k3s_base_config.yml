@@ -1,0 +1,15 @@
+---
+- name: Install k3 Base
+  hosts: k3s_master, k3s_nodes
+  gather_facts: true
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars_files:
+    - "../../inventory/group_vars/all.yml"
+  roles:
+  - role: general
+  - role: docker/ubuntu/common
+    when: ansible_os_family == 'Debian'
+  - role: docker/ubuntu/install
+    when: ansible_os_family == 'Debian'

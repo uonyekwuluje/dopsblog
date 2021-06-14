@@ -1,0 +1,30 @@
+# Get Prerequisites
+---
+- name: Update | Update all packages
+  yum:
+     name: '*'
+     state: latest
+
+- name: Install | Base packages
+  yum:
+    name:
+      - "@Development tools"
+      - git
+      - pyOpenSSL
+      - vim
+      - wget
+      - telnet
+    
+- name: Install | Docker Prerequisites
+  yum:
+    name:
+      - yum-utils
+      - lvm2
+      - device-mapper-persistent-data
+      - net-tools
+      - bind-utils
+      - kexec-tools
+      - sos
+      - psacct
+      - bash-completion
+      - bridge-utils

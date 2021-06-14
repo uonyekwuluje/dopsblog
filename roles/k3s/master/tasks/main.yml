@@ -1,0 +1,20 @@
+---
+- name: Install K3s
+  become: yes
+  become_user: ubuntu 
+  shell: curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="- -write-kubeconfig=/home/ubuntu/.kube/config - -write-kubeconfig-mode=644" sh -
+
+- name: Install Helm
+  become: yes
+  become_user: ubuntu 
+  shell: curl -L https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    
+- name: Enable Service 
+  systemd:
+     name: k3s
+     state: restarted
+     daemon_reload: yes
+  register: k3s_service
+  until: k3s_service.status.ActiveState == "active"
+  retries: 15
+  delay: 20

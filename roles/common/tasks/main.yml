@@ -1,0 +1,19 @@
+---
+- name: apt-get update
+  apt:
+    update-cache: yes
+    upgrade: dist
+
+- name: Install Common Packages
+  apt: 
+    name:
+     - build-essential
+     - curl
+     - python-dev
+     - python-pip
+     - python3-pip
+     - git
+     - ruby
+     - ruby-dev
+     - lsb
+     - acl

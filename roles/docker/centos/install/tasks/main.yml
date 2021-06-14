@@ -1,0 +1,45 @@
+# Install Docker, Docker Compose and Docker Machine
+---
+- name: Install | Docker Repo URL
+  get_url:
+    url: "{{ docker_centos_url }}"
+    dest: "{{ docker_centos_repo }}"
+    mode: "0644"
+
+# - name: Enable Repo | Docker Edge repo
+#   ini_file:
+#     dest: "{{ docker_centos_repo }}"
+#     section: 'docker-ce-edge'
+#     option: enabled
+#     value: 0
+    
+- name: Install | Docker 
+  yum:
+    name:
+      #- "docker-{{ docker_version }}"
+      - "docker-ce-{{ docker_ce_version }}.ce"
+      #- docker-ce-cli
+      #- containerd.io
+  
+- name: Update user group | Add user centos to docker group
+  command: usermod -aG docker centos
+  become: true
+
+
+- name: Install | Docker Machine
+  get_url:
+    url: "{{ docker_machine_url }}"
+    dest: "/bin/docker-machine"
+    mode: "0755"
+
+- name: Install | Docker Compose
+  get_url:
+    url: "{{ docker_compose_url }}"
+    dest: "/bin/docker-compose"
+    mode: "0755"
+
+- name: Service | Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
