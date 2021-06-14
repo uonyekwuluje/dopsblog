@@ -1,7 +1,0 @@
----
-ansible_host: 192.168.1.49
-
-action_runners:
-  - { name: qa, description: "qa repository"}
-  - { name: main, description: "main repository"}
-  - { name: noc-ui, description: "NOC-UI repository"}
